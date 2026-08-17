@@ -1,4 +1,4 @@
-### Caesar Cipher 🔐
+# Caesar Cipher 🔐
 
 A simple command line Caesar Cipher built with Python for encrypting and decrypting text using a chosen shift value.
 
@@ -13,10 +13,10 @@ A simple command line Caesar Cipher built with Python for encrypting and decrypt
 ## Example
 
 Encrypt or Decrypt: encrypt
-Enter the text to encrypt or decrypt: Hello World!
+Enter the text to encrypt or decrypt: ### Hello World!
 Enter the shift value (1 - 25): 3
 
-Khoor Zruog!
+### Khoor Zruog!
 
 ## How It Works
 
@@ -36,6 +36,6 @@ Z → C
 
 Make sure Python 3 is installed, then run:
 
-python caesar.py
+### python caesar.py
 
 No external packages are required.
