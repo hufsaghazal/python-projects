@@ -2,38 +2,20 @@
 # black-hole-calculator
 # =====================
 
+import gradio as gr
+
+css = """
+.gradio-container {
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+}
+"""
+
 # Physical constants
 G = 6.67430e-11  # Gravitational constant (m³ kg⁻¹ s⁻²)
 C = 299792458  # Speed of light in vacuum (m/s)
 SOLAR_MASS = 1.989e30  # Solar mass (kg)
-
-
-def get_user_input():
-    """Get and validate the black hole mass from the user."""
-
-    while True:
-        mass = (
-            input("\nBlack Hole Mass (in solar masses) or 'exit' to quit: ")
-            .lower()
-            .strip()
-        )
-
-        # Allow the user to exit the program.
-        if mass == "exit":
-            return None
-
-        try:
-            mass = float(mass)
-
-            # Black hole mass must be greater than zero.
-            if mass <= 0:
-                print("\nPlease enter a positive value for mass.")
-                continue
-
-            return mass
-
-        except ValueError:
-            print("\nInvalid input. Please enter a numeric value for mass.")
 
 
 def calculate_schwarzschild_radius(mass):
@@ -78,6 +60,12 @@ def classify_black_hole(mass):
 def display_result(mass):
     """Calculate and display the black hole's properties."""
 
+    if mass is None:
+        return "Please enter a mass."
+
+    if mass <= 0:
+        return "Please enter a positive value for mass."
+
     radius_km = calculate_schwarzschild_radius(mass)
 
     # The event horizon diameter is twice the Schwarzschild radius.
@@ -85,26 +73,41 @@ def display_result(mass):
 
     classification = classify_black_hole(mass)
 
-    print(f"\nSchwarzschild Radius: {radius_km:.2f} km")
-    print(f"Event Horizon Diameter: {diameter_km:.2f} km")
-    print(f"Classification: {classification}")
+    return (
+        f"### 🕳️ Schwarzschild Radius\n"
+        f"**{radius_km:.2f} km**\n\n"
+        f"### ⭕ Event Horizon Diameter\n"
+        f"**{diameter_km:.2f} km**\n\n"
+        f"### 🌌 Classification\n"
+        f"**{classification}**"
+    )
 
 
-def main():
-    """Run the black hole calculator."""
+# =====================
+# Gradio Interface
+# =====================
 
-    while True:
-        mass = get_user_input()
+demo = gr.Blocks()
 
-        # None indicates that the user chose to exit.
-        if mass is None:
-            print("\nExiting the program.")
-            break
+with demo:
+    gr.Markdown("# 🕳️ Black Hole Calculator")
+    gr.Markdown("Calculate a black hole's size from its mass.")
 
-        display_result(mass)
+    mass = gr.Number(
+        label="BLACK HOLE MASS",
+        info="Enter mass in solar masses",
+    )
+
+    button = gr.Button("🔭 Calculate")
+
+    output = gr.Markdown("### Enter a mass to begin.")
+
+    button.click(
+        fn=display_result,
+        inputs=mass,
+        outputs=output,
+    )
 
 
-# Run the calculator only when this file is executed directly.
-# This allows the functions to be imported safely by test files.
 if __name__ == "__main__":
-    main()
+    demo.launch(css=css)

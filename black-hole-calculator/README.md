@@ -1,13 +1,14 @@
-# Black Hole Calculator
+# 🕳️ Black Hole Calculator
 
-A Python calculator for exploring basic black-hole properties from mass.
+A Python-based web calculator for exploring basic black-hole properties from mass. The application uses Gradio to provide a simple interactive interface.
 
 ## Features
 
-* Schwarzschild radius
-* Event-horizon diameter
+* Schwarzschild radius calculation
+* Event-horizon diameter calculation
 * Mass-based classification
 * Input validation and error handling
+* Interactive Gradio web interface
 
 ## Physics
 
@@ -37,10 +38,34 @@ Classification: Stellar-mass black hole.
 
 ## Requirements
 
-Python 3
+* Python 3
+* Gradio
+
+Install the dependencies:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Usage
 
+Run the application:
+
 ```bash
-python black_hole_calculator.py
+python app.py
 ```
+
+A Gradio interface will open where you can enter the black hole mass in solar masses.
+
+## Project Structure
+
+```text
+black-hole-calculator/
+├── app.py
+├── requirements.txt
+└── README.md
+```
+
+## Note
+
+The mass classifications are simplified theoretical ranges intended for educational purposes.
